@@ -19,11 +19,11 @@ export default class Main extends Component{
         return(
             <View style = {styles.container}>
                 <View style = {styles.title}>
-                    <Text style={{color: '#c1c1c1', textAlign: 'center', fontSize: 55, fontFamily: 'notoserif'}}>TeenHire</Text>
-                    <Text style={{color: '#3cc194', textAlign: 'center', fontSize: 25}}>Gets you hired.</Text>
+                    <Text style={{color: '#c1c1c1', textAlign: 'center', fontSize: 55, fontFamily: 'sans-serif-condensed'}}>TeenHire</Text>
+                    <Text style={{color: '#3cc194', textAlign: 'center', fontSize: 25, fontFamily: 'sans-serif-condensed'}}>Gets you hired.</Text>
                 </View>
                 <View style = {styles.signInBox}>
-                    <Text style={{color: '#c1c1c1', textAlign: 'center', fontSize: 20, marginBottom: 20}}>Sign in</Text>
+                    <Text style={{color: '#c1c1c1', textAlign: 'center', fontSize: 20, fontFamily: 'sans-serif-condensed', marginBottom: 20}}>Sign in</Text>
                     <TextInput style = {styles.input}
                     underlineColorAndroid = "transparent"
                     placeholder = "Email"
@@ -35,10 +35,12 @@ export default class Main extends Component{
                     placeholder = "Password"
                     placeholderTextColor = "#3cc194"
                     autoCapitalize = "none"
+                    textContentType = 'password'
+                    secureTextEntry={true}
                     onChangeText = {this.handlePassword}/>
                 </View>
                 <View style = {styles.buttonContainer}>
-                    <Button title='Sign in' color = '#3cc194' style={{marginRight: 10}}/>
+                    <Button title='Sign in' color = '#3cc194'/>
                     <Button title='Sign up' color = '#3cc194'/>
                 </View>
             </View>
@@ -54,14 +56,18 @@ const styles = StyleSheet.create({
         backgroundColor: "#06152a",
     },
     input: {
+        borderRadius: 8,
+        marginLeft: 25,
+        marginBottom: 10,
         borderColor: '#c1c1c1',
         borderWidth: 1,
-        color: 'white'
+        color: 'white',
+        textAlign: 'center',
+        width: '85%'
     },
     buttonContainer: {
         justifyContent: 'center',
         flexDirection: 'row',
-        alignContent: 'space-between',
         marginBottom: 40
     },
     signInBox: {
