@@ -7,6 +7,10 @@ import SignInScreen from './src/routes/signin';
 const RootStack = createStackNavigator({
     SignIn: {
         screen: SignInScreen,
+        navigationOptions: {
+          title: 'SignIn',
+          header: null //this will hide the header
+        },
     },
     SignUp: {
         screen: SignUpScreen
@@ -14,7 +18,7 @@ const RootStack = createStackNavigator({
 },
 {
     initialRouteName: 'SignIn'
-});
+}, {headerMode: 'none'});
 
   const AppContainer = createAppContainer(RootStack);
 

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import SignUpScreen from './src/routes/signup';
 
-class SignInScreen extends Component{
+export default class SignInScreen extends Component{
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -44,7 +43,7 @@ class SignInScreen extends Component{
                 <View style = {styles.buttonContainer}>
                     <Button title='Sign in' color = '#3cc194'/>
                     <Button title='Sign up' color = '#3cc194'
-                    onPress={() => this.props.navigation.navigate('SignUpScreen')}/>
+                    onPress={() => this.props.navigation.navigate('SignUp')}/>
                 </View>
             </View>
         );
