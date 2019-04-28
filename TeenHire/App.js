@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import SignUpScreen from './src/routes/signup';
 import SignInScreen from './src/routes/signin';
+import HomeScreen from './src/routes/home';
 
 const RootStack = createStackNavigator({
     SignIn: {
@@ -14,6 +15,13 @@ const RootStack = createStackNavigator({
     },
     SignUp: {
         screen: SignUpScreen
+    },
+    Home: {
+      screen: HomeScreen,
+      navigationOptions: {
+        title: 'Home',
+        header: null
+      }
     }
 },
 {
