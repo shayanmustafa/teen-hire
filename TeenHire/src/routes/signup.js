@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TextInput, Button, Picker, ToastAndroid } from 'react-native'
-import {auth} from '../common/firebase'
+//import {auth} from '../common/firebase'
+import firebase from '../common/firebase1'
 
 export default class SignUpScreen extends Component {
     constructor(props){
@@ -30,14 +31,29 @@ export default class SignUpScreen extends Component {
     }
 
     handleSignUp = () => {
+        var user; 
         if (this.state.firstName != '' || this.state.lastName != '' || this.state.email != '' || this.state.password != '' || this.state.confirmPassword != '') {
-            auth.createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
+            firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(() => {
+                firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(() => {
+                    user = firebase.auth().currentUser;
+                    firebase.firestore().collection("users").doc(user.uid).set({
+                        firstName: this.state.firstName,
+                        lastName: this.state.lastName,
+                        email: this.state.email
+                    }).then(function() {
+                        console.log("Document successfully written.")
+                    }).catch(function() {
+                        console.error("Error writing document: ", error);
+                    });
+                })
+            }).then(() => {
+                this.props.navigation.navigate('Home');
+            }).catch(function (error) {
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 console.log(errorCode);
                 console.log(errorMessage);
             });
-            this.props.navigation.navigate('Home');
         }
         else {
             ToastAndroid.show('One or more fields are missing', ToastAndroid.SHORT);

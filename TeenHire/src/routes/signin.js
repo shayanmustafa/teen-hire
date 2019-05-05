@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TextInput, Button, ToastAndroid } from 'react-native'
-import {auth} from '../common/firebase'
+//import {auth} from '../common/firebase'
+import firebase from '../common/firebase1'
 
 
 export default class SignInScreen extends Component{
@@ -17,40 +18,21 @@ export default class SignInScreen extends Component{
         handlePassword = (text) => {
             this.setState({ password: text })
         }
-        /*handleSignIn = () => {
-            auth.signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                if (this.state.email == '' || this.state.password == '') {
-                    ToastAndroid.show('Email or password missing', ToastAndroid.SHORT);
-                } else if (errorCode === 'auth/wrong-password') {
-                    ToastAndroid.show('Wrong password', ToastAndroid.SHORT);
-                    //this.props.navigation.navigate('Home');
-                } else if (errorCode === 'auth/user-not-found') {
-                    ToastAndroid.show('User does not exist', ToastAndroid.SHORT);
-                } else if (errorCode === 'auth/invalid-email') {
-                    ToastAndroid.show('Invalid email', ToastAndroid.SHORT);
-                }
-                else {
-                    this.props.navigation.navigate('Home');
-                }
-            });
-        }*/
         handleSignIn = () => {
             if (this.state.email != '' || this.state.password != '') {
-                auth.signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+                firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(() =>  {
+                    this.props.navigation.navigate('Home');
+                }).catch(function(error) {
                     var errorCode = error.code;
                     var errorMessage = error.message;
                     if (errorCode === 'auth/wrong-password') {
                         ToastAndroid.show('Wrong password', ToastAndroid.SHORT);
-                        //this.props.navigation.navigate('Home');
                     } else if (errorCode === 'auth/user-not-found') {
                         ToastAndroid.show('User does not exist', ToastAndroid.SHORT);
                     } else if (errorCode === 'auth/invalid-email') {
                         ToastAndroid.show('Invalid email', ToastAndroid.SHORT);
-                    } 
+                    }
                 });
-                this.props.navigation.navigate('Home');
             }
             else {
                 ToastAndroid.show('Email or password missing', ToastAndroid.SHORT);
