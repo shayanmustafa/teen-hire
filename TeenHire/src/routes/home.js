@@ -5,9 +5,25 @@ import firebase from '../common/firebase1'
 export default class HomeScreen extends Component {
     constructor(props){
         super(props);
-        //this.user = firebase.auth().currentUser;
-        //this.userRef = firebase.firestore().collection("users");
+        this.state = {
+            profileInfo: ''
+        }
     }
+
+    componentDidMount() {
+        var user = firebase.auth().currentUser;
+        var docRef = firebase.firestore().collection("users").doc(user.uid);
+        docRef.get().then((doc) =>{
+            if(doc.exists){
+                this.setState({profileInfo: doc.data()});
+            } else {
+                console.log("No such doc");
+            }
+        }).catch(function(error){
+            console.log("Error getting document", error);
+        });
+    }
+
     handleSignOut = () => {
         firebase.auth().signOut().then(() => {
             this.props.navigation.navigate('SignIn');
@@ -20,7 +36,7 @@ export default class HomeScreen extends Component {
         return (
             <View>
                 <Text>Home Screen</Text>
-                <Text></Text>
+                <Text>Welcome {this.state.profileInfo.email}</Text>
                 <View style = {styles.buttonContainer}>
                         <Button title='Sign out' color = '#3cc194'
                         onPress={this.handleSignOut}/>
