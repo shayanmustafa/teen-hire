@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View, TextInput, Button, ToastAndroid } from 'react-native'
 //import {auth} from '../common/firebase'
 import firebase from '../common/firebase1'
+import { YellowBox } from 'react-native';
 
 
 export default class SignInScreen extends Component{
@@ -11,6 +12,7 @@ export default class SignInScreen extends Component{
             email: '',
             password: ''
         }
+        YellowBox.ignoreWarnings(['Setting a timer']);
     }
         handleEmail = (text) => {
             this.setState({ email: text })

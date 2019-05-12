@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TextInput, Button, Picker, ToastAndroid } from 'react-native'
+import { RadioGroup } from 'react-native-btr';
 //import {auth} from '../common/firebase'
 import firebase from '../common/firebase1'
 
@@ -12,6 +13,30 @@ export default class SignUpScreen extends Component {
             email: '',
             password: '',
             confirmPassword: '',
+            radioButtons: [
+                {
+                  label: 'Job Seeker',
+                  value: 'Job Seeker',
+                  checked: false,
+                  color: '#3cc194',
+                  disabled: false,
+                  flexDirection: 'row',
+                  size: 8
+         
+                },
+         
+                {
+                  label: 'Employer',
+                  value: 'Employer',
+                  checked: false,
+                  color: '#3cc194',
+                  disabled: false,
+                  flexDirection: 'row',
+                  size: 8
+         
+                }
+            ],
+            selected: '' 
         }
     }
     handleFirstName = (text) => {
@@ -36,10 +61,14 @@ export default class SignUpScreen extends Component {
             firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(() => {
                 firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(() => {
                     user = firebase.auth().currentUser;
+                    let selectedItem = this.state.radioButtons.find(e => e.checked == true);
+                    selectedItem = selectedItem ? selectedItem.value : this.state.radioButtons[0].value;
+                    this.setState({selected: selectedItem})
                     firebase.firestore().collection("users").doc(user.uid).set({
                         firstName: this.state.firstName,
                         lastName: this.state.lastName,
-                        email: this.state.email
+                        email: this.state.email,
+                        role: this.state.selected
                     }).then(function() {
                         console.log("Document successfully written.")
                     }).catch(function() {
@@ -59,48 +88,65 @@ export default class SignUpScreen extends Component {
             ToastAndroid.show('One or more fields are missing', ToastAndroid.SHORT);
         }
     }
-
+    
     render() {
+        let selectedItem = this.state.radioButtons.find(e => e.checked == true);
+        selectedItem = selectedItem ? selectedItem.value : this.state.radioButtons[0].value;
         return(
             <View style = {styles.container}>
-                <TextInput style = {styles.input}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "First name"
-                    placeholderTextColor = "#3cc194"
-                    autoCapitalize = "none"
-                    value = {this.state.firstName}
-                    onChangeText = {this.handleFirstName}/>
-                <TextInput style = {styles.input}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "Last name"
-                    placeholderTextColor = "#3cc194"
-                    autoCapitalize = "none"
-                    value = {this.state.lastName}
-                    onChangeText = {this.handleLastName}/>
-                <TextInput style = {styles.input}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "Email"
-                    placeholderTextColor = "#3cc194"
-                    autoCapitalize = "none"
-                    value = {this.state.email}
-                    onChangeText = {this.handleEmail}/>
-                <TextInput style = {styles.input}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "Password"
-                    placeholderTextColor = "#3cc194"
-                    autoCapitalize = "none"
-                    secureTextEntry={true}
-                    value = {this.state.password}
-                    onChangeText = {this.handlePassword}/>
-                <TextInput style = {styles.input}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "Confirm password"
-                    placeholderTextColor = "#3cc194"
-                    autoCapitalize = "none"
-                    secureTextEntry={true}
-                    value = {this.state.confirmPassword}
-                    onChangeText = {this.handleConfirmPassword}/>
-                <Button title="Register" onPress={this.handleSignUp} />
+                <View style = {styles.titleContainer}>
+                    <Text style={{color: '#c1c1c1', textAlign: 'center', fontSize: 28, fontFamily: 'sans-serif-condensed', marginBottom: 20}}>Register yourself</Text>
+                </View>
+                <View style = {styles.inputContainer}>
+                    <TextInput style = {styles.input}
+                        underlineColorAndroid = "transparent"
+                        placeholder = "First name"
+                        placeholderTextColor = "#3cc194"
+                        autoCapitalize = "none"
+                        value = {this.state.firstName}
+                        onChangeText = {this.handleFirstName}/>
+                    <TextInput style = {styles.input}
+                        underlineColorAndroid = "transparent"
+                        placeholder = "Last name"
+                        placeholderTextColor = "#3cc194"
+                        autoCapitalize = "none"
+                        value = {this.state.lastName}
+                        onChangeText = {this.handleLastName}/>
+                    <TextInput style = {styles.input}
+                        underlineColorAndroid = "transparent"
+                        placeholder = "Email"
+                        placeholderTextColor = "#3cc194"
+                        autoCapitalize = "none"
+                        value = {this.state.email}
+                        onChangeText = {this.handleEmail}/>
+                    <TextInput style = {styles.input}
+                        underlineColorAndroid = "transparent"
+                        placeholder = "Password"
+                        placeholderTextColor = "#3cc194"
+                        autoCapitalize = "none"
+                        secureTextEntry={true}
+                        value = {this.state.password}
+                        onChangeText = {this.handlePassword}/>
+                    <TextInput style = {styles.input}
+                        underlineColorAndroid = "transparent"
+                        placeholder = "Confirm password"
+                        placeholderTextColor = "#3cc194"
+                        autoCapitalize = "none"
+                        secureTextEntry={true}
+                        value = {this.state.confirmPassword}
+                        onChangeText = {this.handleConfirmPassword}/>
+                        <View style={{marginLeft: 150, flexDirection: 'row', justifyContent: 'center'}}>
+                            <RadioGroup
+                                color='#0277BD'
+                                labelStyle={{ fontSize: 14, }}
+                                radioButtons={this.state.radioButtons}
+                                onPress={radioButtons => this.setState({ radioButtons })}
+                                style={{ paddingTop: 20 }}/>
+                        </View>
+                </View>
+                <View style= {styles.buttonContainer}>
+                    <Button title="Register" color = '#3cc194' onPress={this.handleSignUp} />
+                </View>
             </View>
         );
     }
@@ -122,5 +168,9 @@ const styles = StyleSheet.create({
         color: 'white',
         textAlign: 'center',
         width: '85%'
+    },
+    buttonContainer: {
+        justifyContent: 'center',
+        flexDirection: 'row'
     }
 })

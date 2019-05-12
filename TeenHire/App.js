@@ -14,7 +14,10 @@ const RootStack = createStackNavigator({
         },
     },
     SignUp: {
-        screen: SignUpScreen
+        screen: SignUpScreen,
+        navigationOptions: {
+          header: null
+        }
     },
     Home: {
       screen: HomeScreen,

@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TextInput, Button, ToastAndroid } from 'react-native'
 import firebase from '../common/firebase1'
+import { YellowBox } from 'react-native';
+import { declaredPredicate } from '@babel/types';
 
 export default class HomeScreen extends Component {
     constructor(props){
         super(props);
+            YellowBox.ignoreWarnings(['Setting a timer']);
         this.state = {
             profileInfo: ''
         }
@@ -34,9 +37,11 @@ export default class HomeScreen extends Component {
     }
     render() {
         return (
-            <View>
-                <Text>Home Screen</Text>
-                <Text>Welcome {this.state.profileInfo.email}</Text>
+            <View style = {styles.container}>
+                <View style = {styles.titleContainer}>
+                    <Text style={{color: "white", textAlign: "center"}}>Welcome {this.state.profileInfo.lastName}</Text>
+                    <Text style={{color: "white", textAlign: "center"}}>Job Seeker</Text>
+                </View>
                 <View style = {styles.buttonContainer}>
                         <Button title='Sign out' color = '#3cc194'
                         onPress={this.handleSignOut}/>
@@ -47,9 +52,17 @@ export default class HomeScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        backgroundColor: "#06152a"
+    },
     buttonContainer: {
         justifyContent: 'center',
         flexDirection: 'row',
         marginBottom: 40
+    },
+    titleContainer: {
+        marginBottom: 2
     }
 })
