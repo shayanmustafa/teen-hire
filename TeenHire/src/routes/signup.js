@@ -90,8 +90,6 @@ export default class SignUpScreen extends Component {
     }
     
     render() {
-        let selectedItem = this.state.radioButtons.find(e => e.checked == true);
-        selectedItem = selectedItem ? selectedItem.value : this.state.radioButtons[0].value;
         return(
             <View style = {styles.container}>
                 <View style = {styles.titleContainer}>

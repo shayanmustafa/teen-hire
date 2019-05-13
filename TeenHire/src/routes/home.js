@@ -4,6 +4,34 @@ import firebase from '../common/firebase1'
 import { YellowBox } from 'react-native';
 import { declaredPredicate } from '@babel/types';
 
+class Employer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+    }
+    render() {
+        return (
+            <Text style={{color: "white", textAlign: "center"}}>Employer Component</Text>
+        )
+    }
+}
+
+class JobSeeker extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+    }
+    render() {
+        return(
+            <Text style={{color: "white", textAlign: "center"}}>Job Seeker Component</Text>
+        )
+    }
+}
+
 export default class HomeScreen extends Component {
     constructor(props){
         super(props);
@@ -36,11 +64,18 @@ export default class HomeScreen extends Component {
         });
     }
     render() {
+        let MainComponent;
+        if(this.state.profileInfo.role == 'Employer') {
+            MainComponent = <Employer />
+        } else {
+            MainComponent = <JobSeeker />
+        }
         return (
             <View style = {styles.container}>
                 <View style = {styles.titleContainer}>
                     <Text style={{color: "white", textAlign: "center"}}>Welcome {this.state.profileInfo.lastName}</Text>
-                    <Text style={{color: "white", textAlign: "center"}}>Job Seeker</Text>
+                    <Text style={{color: "white", textAlign: "center"}}>{this.state.profileInfo.role}</Text>
+                    {MainComponent}
                 </View>
                 <View style = {styles.buttonContainer}>
                         <Button title='Sign out' color = '#3cc194'
