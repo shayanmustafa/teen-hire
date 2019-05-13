@@ -3,34 +3,8 @@ import { StyleSheet, Text, View, TextInput, Button, ToastAndroid } from 'react-n
 import firebase from '../common/firebase1'
 import { YellowBox } from 'react-native';
 import { declaredPredicate } from '@babel/types';
-
-class Employer extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        }
-    }
-    render() {
-        return (
-            <Text style={{color: "white", textAlign: "center"}}>Employer Component</Text>
-        )
-    }
-}
-
-class JobSeeker extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        }
-    }
-    render() {
-        return(
-            <Text style={{color: "white", textAlign: "center"}}>Job Seeker Component</Text>
-        )
-    }
-}
+import JobSeeker from '../components/jobseeker';
+import Employer from '../components/employer';
 
 export default class HomeScreen extends Component {
     constructor(props){
