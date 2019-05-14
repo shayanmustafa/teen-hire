@@ -6,12 +6,14 @@ export default class Employer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            posts: []
         }
     }
     render() {
         return (
-            <Text style={{color: "white", textAlign: "center"}}>Employer Component</Text>
+            <View>
+                <Text style={{color: "white", textAlign: "center"}}>Employer Component</Text>
+            </View>
         )
     }
 }

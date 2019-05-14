@@ -4,6 +4,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import SignUpScreen from './src/routes/signup';
 import SignInScreen from './src/routes/signin';
 import HomeScreen from './src/routes/home';
+import PostsScreen from './src/routes/posts';
 
 const RootStack = createStackNavigator({
     SignIn: {
@@ -23,6 +24,13 @@ const RootStack = createStackNavigator({
       screen: HomeScreen,
       navigationOptions: {
         title: 'Home',
+        header: null
+      }
+    },
+    Posts: {
+      screen: PostsScreen,
+      navigationOptions: {
+        title: 'Posts',
         header: null
       }
     }
