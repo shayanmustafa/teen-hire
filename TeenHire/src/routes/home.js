@@ -40,11 +40,12 @@ export default class HomeScreen extends Component {
     render() {
         let MainComponent;
         if(this.state.profileInfo.role == 'Employer') {
-            MainComponent = <View>
-            <Employer />
-            <Button
-                title='Add Posts' color = '#3cc194'
-                onPress={() => this.props.navigation.navigate('Posts')}/>
+            MainComponent = 
+            <View>
+                <Employer />
+                <Button
+                    title='Add Posts' color = '#3cc194'
+                    onPress={() => this.props.navigation.navigate('Posts')}/>
             </View>
         } else {
             MainComponent = <JobSeeker />
