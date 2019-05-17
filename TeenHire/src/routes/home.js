@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View, TextInput, Button, ToastAndroid } from 'react-native'
 import firebase from '../common/firebase1'
 import { YellowBox } from 'react-native';
-import { declaredPredicate } from '@babel/types';
 import JobSeeker from '../components/jobseeker';
 import Employer from '../components/employer';
 
@@ -11,14 +10,15 @@ export default class HomeScreen extends Component {
         super(props);
             YellowBox.ignoreWarnings(['Setting a timer']);
         this.state = {
-            profileInfo: ''
+            profileInfo: '',
+            jobsPosted: [],
         }
     }
 
     componentDidMount() {
         var user = firebase.auth().currentUser;
-        var docRef = firebase.firestore().collection("users").doc(user.uid);
-        docRef.get().then((doc) =>{
+        var docRef1 = firebase.firestore().collection("users").doc(user.uid);
+        docRef1.get().then((doc) =>{
             if(doc.exists){
                 this.setState({profileInfo: doc.data()});
             } else {
@@ -27,6 +27,14 @@ export default class HomeScreen extends Component {
         }).catch(function(error){
             console.log("Error getting document", error);
         });
+        //var docRef2 = firebase.firestore().collection("posts").doc(user.uid);
+        firebase.firestore().collection("posts").get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                if(doc.exists){
+                this.setState({jobsPosted: doc.data()});
+                }
+            });
+        })
     }
 
     handleSignOut = () => {
@@ -43,6 +51,7 @@ export default class HomeScreen extends Component {
             MainComponent = 
             <View>
                 <Employer />
+                
                 <Button
                     title='Add Posts' color = '#3cc194'
                     onPress={() => this.props.navigation.navigate('Posts')}/>

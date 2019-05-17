@@ -7,7 +7,8 @@ export default class PostsScreen extends Component {
         super(props);
         this.state = {
             jobTitle: '',
-            jobDesc: ''
+            jobDesc: '',
+            jobID: ''
         }
     }
     handleJobTitle = (text) => {
@@ -16,13 +17,17 @@ export default class PostsScreen extends Component {
     handleJobDesc = (text) => {
         this.setState({jobDesc: text})
     }
+    handleJobID = (text) => {
+        this.setState({jobID: text})
+    }
     handlePost = () => {
         var user;
         if(this.state.jobTitle != '' || this.state.jobDesc != '') {
             user = firebase.auth().currentUser;
-            firebase.firestore().collection("posts").doc(user.uid).set({
+            firebase.firestore().collection("posts").doc(this.state.jobID).set({
                 jobTitle: this.state.jobTitle,
-                jobDescription: this.state.jobDesc
+                jobDescription: this.state.jobDesc,
+                employerID: user.uid
             }).then(function() {
                 console.log("Document successfully written.")
                 //this.props.navigation.navigate('Home');
@@ -52,6 +57,13 @@ export default class PostsScreen extends Component {
                         autoCapitalize = "none"
                         value = {this.state.jobDesc}
                         onChangeText = {this.handleJobDesc}/>
+                    <TextInput style = {styles.input}
+                        underlineColorAndroid = "transparent"
+                        placeholder = "Job ID"
+                        placeholderTextColor = "#3cc194"
+                        autoCapitalize = "none"
+                        value = {this.state.jobID}
+                        onChangeText = {this.handleJobID}/>
                     <Button title="Post" color = '#3cc194' onPress={this.handlePost} />
             </View>
         )
