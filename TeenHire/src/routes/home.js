@@ -24,7 +24,7 @@ export default class HomeScreen extends Component {
             if(doc.exists){
                 this.setState({profileInfo: doc.data()});
             } else {
-                console.log("No such doc");
+                ToastAndroid.show('No such doc', ToastAndroid.SHORT);
             }
         }).catch(function(error){
             console.log("Error getting document", error);
