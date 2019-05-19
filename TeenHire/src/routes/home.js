@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TextInput, Button, ToastAndroid } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Button, ToastAndroid, FlatList, StatusBar} from 'react-native'
+import { Container, Header, Content, Card, CardItem, Body } from 'native-base';
 import firebase from '../common/firebase1'
 import { YellowBox } from 'react-native';
 import JobSeeker from '../components/jobseeker';
@@ -11,11 +12,12 @@ export default class HomeScreen extends Component {
             YellowBox.ignoreWarnings(['Setting a timer']);
         this.state = {
             profileInfo: '',
-            jobsPosted: [],
+            jobsPosted: '',
         }
     }
 
     componentDidMount() {
+        StatusBar.setHidden(true);
         var user = firebase.auth().currentUser;
         var docRef1 = firebase.firestore().collection("users").doc(user.uid);
         docRef1.get().then((doc) =>{
@@ -27,14 +29,6 @@ export default class HomeScreen extends Component {
         }).catch(function(error){
             console.log("Error getting document", error);
         });
-        //var docRef2 = firebase.firestore().collection("posts").doc(user.uid);
-        firebase.firestore().collection("posts").get().then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                if(doc.exists){
-                this.setState({jobsPosted: doc.data()});
-                }
-            });
-        })
     }
 
     handleSignOut = () => {
@@ -51,10 +45,11 @@ export default class HomeScreen extends Component {
             MainComponent = 
             <View>
                 <Employer />
-                
+                <View>
                 <Button
                     title='Add Posts' color = '#3cc194'
                     onPress={() => this.props.navigation.navigate('Posts')}/>
+                </View>
             </View>
         } else {
             MainComponent = <JobSeeker />
@@ -64,8 +59,8 @@ export default class HomeScreen extends Component {
                 <View style = {styles.titleContainer}>
                     <Text style={{color: "white", textAlign: "center"}}>Welcome {this.state.profileInfo.lastName}</Text>
                     <Text style={{color: "white", textAlign: "center"}}>{this.state.profileInfo.role}</Text>
-                    {MainComponent}
                 </View>
+                {MainComponent}
                 <View style = {styles.buttonContainer}>
                         <Button title='Sign out' color = '#3cc194'
                         onPress={this.handleSignOut}/>
