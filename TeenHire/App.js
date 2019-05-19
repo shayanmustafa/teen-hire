@@ -5,6 +5,8 @@ import SignUpScreen from './src/routes/signup';
 import SignInScreen from './src/routes/signin';
 import HomeScreen from './src/routes/home';
 import PostsScreen from './src/routes/posts';
+import ApplyScreen from './src/components/apply';
+import JobSeeker from './src/components/jobseeker';
 
 const RootStack = createStackNavigator({
     SignIn: {
@@ -31,6 +33,20 @@ const RootStack = createStackNavigator({
       screen: PostsScreen,
       navigationOptions: {
         title: 'Posts',
+        header: null
+      }
+    },
+    Apply: {
+      screen: ApplyScreen,
+      navigationOptions: {
+        title: 'Apply',
+        header: null
+      }
+    },
+    JobSeeker: {
+      screen: JobSeeker,
+      navigationOptions: {
+        title: 'JobSeeker',
         header: null
       }
     }

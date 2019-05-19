@@ -39,7 +39,8 @@ export default class JobSeeker extends Component {
                                 <CardItem footer>
                                     <Button
                                     title='Apply now' color = '#3cc194'
-                                    style={styles.buttonContainer}/>
+                                    style={styles.buttonContainer}
+                                    onPress={() => this.props.navigation.navigate('Apply')}/>
                                 </CardItem>
                             </Card>
                         </Content>

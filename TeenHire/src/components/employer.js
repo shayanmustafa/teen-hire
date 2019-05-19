@@ -40,7 +40,8 @@ export default class Employer extends Component {
                                 <CardItem footer>
                                     <Button
                                     title='Apply now' color = '#3cc194'
-                                    style={styles.buttonContainer}/>
+                                    style={styles.buttonContainer}
+                                    onPress={this.handleApply}/>
                                 </CardItem>
                             </Card>
                         </Content>
