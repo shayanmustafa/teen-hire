@@ -11,8 +11,8 @@ export default class Employer extends Component {
         }
     }
     componentDidMount() {
-        var user = firebase.auth().currentUser;
-        firebase.firestore().collection("posts").get().then((querySnapshot) => {
+        var user = firebase.auth().currentUser.uid;
+        firebase.firestore().collection("posts").where("employerID", "==", user).get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 this.setState({
                     jobsPosted: [...this.state.jobsPosted, doc.data()]
@@ -23,7 +23,6 @@ export default class Employer extends Component {
     render() {
         return (
             <View>
-                <Text style={{color: "white", textAlign: "center"}}>Employer Component</Text>
                 <FlatList
                 data={this.state.jobsPosted}
                 renderItem={({item}) =>
@@ -39,7 +38,9 @@ export default class Employer extends Component {
                                     </Body>
                                 </CardItem>
                                 <CardItem footer>
-                                        <Text>Apply now</Text>
+                                    <Button
+                                    title='Apply now' color = '#3cc194'
+                                    style={styles.buttonContainer}/>
                                 </CardItem>
                             </Card>
                         </Content>
@@ -57,5 +58,10 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
         marginBottom: 2
+    },
+    buttonContainer: {
+        justifyContent: 'center',
+        flexDirection: 'row',
+        marginBottom: 30,
     }
 })
