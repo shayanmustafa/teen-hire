@@ -8,7 +8,8 @@ export default class PostsScreen extends Component {
         this.state = {
             jobTitle: '',
             jobDesc: '',
-            jobID: ''
+            jobID: '',
+            email: ''
         }
     }
     handleJobTitle = (text) => {
@@ -19,6 +20,9 @@ export default class PostsScreen extends Component {
     }
     handleJobID = (text) => {
         this.setState({jobID: text})
+    }
+    handleEmail = (text) => {
+        this.setState({email: text})
     }
     handlePost = () => {
         var user;
@@ -64,6 +68,13 @@ export default class PostsScreen extends Component {
                         autoCapitalize = "none"
                         value = {this.state.jobID}
                         onChangeText = {this.handleJobID}/>
+                    <TextInput style = {styles.input}
+                        underlineColorAndroid = "transparent"
+                        placeholder = "Applicatoin recieving email"
+                        placeholderTextColor = "#3cc194"
+                        autoCapitalize = "none"
+                        value = {this.state.email}
+                        onChangeText = {this.handleEmail}/>    
                     <Button title="Post" color = '#3cc194' onPress={this.handlePost} />
             </View>
         )

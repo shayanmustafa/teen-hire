@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TextInput, Button, ToastAndroid, FlatList, StatusBar } from 'react-native'
 import { Container, Content, Card, CardItem, Body } from 'native-base';
+import email from 'react-native-email'
 import firebase from '../common/firebase1'
 
 export default class ApplyScreen extends Component {
@@ -11,11 +12,18 @@ export default class ApplyScreen extends Component {
             CoverLetter: ''
         }
     }
-    handleEmail = (text) => {
-        this.setState({ email: text })
-    }
     handleCoverLetter = (text) => {
         this.setState({ CoverLetter: text })
+    }
+    handleSubmit = () => {
+        const to = ['mustafa.shayan97@outlook.com'] // string or array of email addresses
+        email(to, {
+            // Optional additional arguments
+            cc: [''], // string or array of email addresses
+            bcc: '', // string or array of email addresses
+            subject: 'Job Application: Applied through TeenHire',
+            body: this.state.CoverLetter
+        }).catch(console.error)
     }
     render() {
         return (
@@ -26,18 +34,14 @@ export default class ApplyScreen extends Component {
                 <View style = {styles.inputContainer}>
                     <TextInput style = {styles.input}
                         underlineColorAndroid = "transparent"
-                        placeholder = "Email address"
-                        placeholderTextColor = "#3cc194"
-                        autoCapitalize = "none"
-                        value = {this.state.email}
-                        onChangeText = {this.handleEmail}/>
-                    <TextInput style = {styles.input}
-                        underlineColorAndroid = "transparent"
                         placeholder = "Cover letter"
                         placeholderTextColor = "#3cc194"
                         autoCapitalize = "none"
                         value = {this.state.CoverLetter}
                         onChangeText = {this.handleCoverLetter}/>
+                </View>
+                <View style= {styles.buttonContainer}>
+                    <Button title="Apply" color = '#3cc194' onPress={this.handleSubmit} />
                 </View>
             </View>
         );

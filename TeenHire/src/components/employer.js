@@ -7,7 +7,8 @@ export default class Employer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            jobsPosted: ''
+            jobsPosted: '',
+            applyCount: 0
         }
     }
     componentDidMount() {
