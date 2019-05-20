@@ -74,7 +74,7 @@ export default class HomeScreen extends Component {
                         onPress={this.handleSignOut}/>
                     </View>
                 </View>
-                <JobSeeker />
+                <JobSeeker navigation={this.props.navigation}/>
             </View>
         }
         return (
