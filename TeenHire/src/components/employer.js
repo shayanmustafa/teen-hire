@@ -38,12 +38,6 @@ export default class Employer extends Component {
                                         <Text style={{color: "black"}}>{item.jobDescription}</Text>
                                     </Body>
                                 </CardItem>
-                                <CardItem footer>
-                                    <Button
-                                    title='Apply now' color = '#3cc194'
-                                    style={styles.buttonContainer}
-                                    onPress={this.handleApply}/>
-                                </CardItem>
                             </Card>
                         </Content>
                     </Container>
