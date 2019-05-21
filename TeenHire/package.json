@@ -1,5 +1,5 @@
 {
-  "name": "TeenHire",
+  "name": "teen-hire",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -16,6 +16,7 @@
     "react-native-gesture-handler": "^1.1.0",
     "react-native-radio-buttons-group": "^1.0.7",
     "react-native-simple-radio-button": "^2.7.3",
+    "react-native-video": "^4.4.1",
     "react-navigation": "^3.6.1"
   },
   "devDependencies": {
