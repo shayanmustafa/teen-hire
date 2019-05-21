@@ -90,7 +90,12 @@ export default class HomeScreen extends Component {
                 <Text style={styles.btnText}>Sign Out</Text>
               </TouchableOpacity>
             </View>
-            <View>
+            <View
+              style={{
+                borderWidth: 0.3,
+                borderColor: "#3cc194"
+              }}
+            >
               <Text style={{ ...styles.titleText, marginVertical: 20 }}>
                 Posts
               </Text>
@@ -141,7 +146,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     width: "40%",
-    backgroundColor: "#3cc194"
+    backgroundColor: "#3cc194",
+    marginBottom: 30
   },
   btnText: {
     color: "#116d4e",
