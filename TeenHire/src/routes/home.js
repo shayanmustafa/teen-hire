@@ -13,6 +13,7 @@ export default class HomeScreen extends Component {
         this.state = {
             profileInfo: '',
             jobsPosted: '',
+            recieveEmail: ''
         }
     }
 
@@ -48,6 +49,7 @@ export default class HomeScreen extends Component {
                     <View style = {styles.titleContainer}>
                         <Text style={{color: "white", textAlign: "center"}}>Welcome {this.state.profileInfo.lastName}</Text>
                         <Text style={{color: "white", textAlign: "center"}}>{this.state.profileInfo.role}</Text>
+                        <Text style={{color: "white", textAlign: "center"}}>{this.state.recieveEmail}</Text>
                     </View>
                     <View style = {styles.buttonContainer}>
                         <Button

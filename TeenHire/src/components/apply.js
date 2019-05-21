@@ -16,7 +16,9 @@ export default class ApplyScreen extends Component {
         this.setState({ CoverLetter: text })
     }
     handleSubmit = () => {
-        const to = ['mustafa.shayan97@outlook.com'] // string or array of email addresses
+        const { navigation } = this.props;
+        const emailRecieve = navigation.getParam('emailID', 'NO-ID');
+        const to = [emailRecieve] // string or array of email addresses
         email(to, {
             // Optional additional arguments
             cc: [''], // string or array of email addresses
@@ -26,6 +28,7 @@ export default class ApplyScreen extends Component {
         }).catch(console.error)
     }
     render() {
+        //const emailParam = navigation.getParam('emailID', 'NO-ID');
         return (
             <View style = {styles.container}>
                 <View style = {styles.titleContainer}>

@@ -40,7 +40,9 @@ export default class JobSeeker extends Component {
                                     <Button
                                     title='Apply now' color = '#3cc194'
                                     style={styles.buttonContainer}
-                                    onPress={() => this.props.navigation.navigate('Apply')}/>
+                                    onPress={() => this.props.navigation.navigate('Apply', {
+                                        emailID: item.emailTo
+                                    })}/>
                                 </CardItem>
                             </Card>
                         </Content>

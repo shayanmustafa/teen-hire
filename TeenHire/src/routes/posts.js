@@ -31,6 +31,7 @@ export default class PostsScreen extends Component {
             firebase.firestore().collection("posts").doc(this.state.jobID).set({
                 jobTitle: this.state.jobTitle,
                 jobDescription: this.state.jobDesc,
+                emailTo: this.state.email,
                 employerID: user.uid
             }).then(function() {
                 console.log("Document successfully written.")
@@ -38,7 +39,9 @@ export default class PostsScreen extends Component {
             }).catch(function(){
                 console.error("Error writing document: ", error)
             });
-            this.props.navigation.navigate('Home');
+            this.props.navigation.navigate('Home', {
+                emailID: this.state.email
+            });
         } else {
             ToastAndroid.show('One or more fields are missing', ToastAndroid.SHORT);
         }
@@ -70,7 +73,7 @@ export default class PostsScreen extends Component {
                         onChangeText = {this.handleJobID}/>
                     <TextInput style = {styles.input}
                         underlineColorAndroid = "transparent"
-                        placeholder = "Applicatoin recieving email"
+                        placeholder = "Application recieving email"
                         placeholderTextColor = "#3cc194"
                         autoCapitalize = "none"
                         value = {this.state.email}
