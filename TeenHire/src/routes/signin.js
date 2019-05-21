@@ -19,8 +19,8 @@ export default class SignInScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "user4@gmail.com",
-      password: "user4123"
+      email: "user2@gmail.com",
+      password: "user2123"
     };
     YellowBox.ignoreWarnings(["Setting a timer"]);
   }

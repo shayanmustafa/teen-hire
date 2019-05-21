@@ -60,9 +60,10 @@ export default class HomeScreen extends Component {
       });
   };
   render() {
-    let MainComponent;
-    if (this.state.profileInfo.role == "Employer") {
-      MainComponent = (
+    const { profileInfo } = this.state;
+
+    return (
+      <View style={styles.container}>
         <View style={styles.mainContainer}>
           <View style={styles.headerContainer}>
             <View style={styles.titleContainer}>
@@ -77,12 +78,14 @@ export default class HomeScreen extends Component {
               </Text>
             </View>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                onPress={() => this.props.navigation.navigate("Posts")}
-                style={{ ...styles.btn, width: "55%", marginRight: "5%" }}
-              >
-                <Text style={styles.btnText}>Add New</Text>
-              </TouchableOpacity>
+              {profileInfo.role == "Employer" && (
+                <TouchableOpacity
+                  onPress={() => this.props.navigation.navigate("Posts")}
+                  style={{ ...styles.btn, width: "55%", marginRight: "5%" }}
+                >
+                  <Text style={styles.btnText}>Add New</Text>
+                </TouchableOpacity>
+              )}
               <TouchableOpacity
                 onPress={this.handleSignOut}
                 style={{ ...styles.btn, width: "25%" }}
@@ -97,38 +100,19 @@ export default class HomeScreen extends Component {
               }}
             >
               <Text style={{ ...styles.titleText, marginVertical: 20 }}>
-                Posts
+                {profileInfo.role == "Employer" ? "Posts" : "Available Jobs"}
               </Text>
             </View>
           </View>
+          {profileInfo.role == "Employer" ? (
+            <Employer />
+          ) : (
+            <JobSeeker navigation={this.props.navigation} />
+          )}
           <Employer />
         </View>
-      );
-    } else {
-      MainComponent = (
-        <View>
-          <View style={styles.headerContainer}>
-            <View style={styles.titleContainer}>
-              <Text style={{ color: "white", textAlign: "center" }}>
-                Welcome, {this.state.profileInfo.lastName}
-              </Text>
-              <Text style={{ color: "white", textAlign: "center" }}>
-                {this.state.profileInfo.role}
-              </Text>
-            </View>
-            <View style={styles.buttonContainer}>
-              <Button
-                title="Sign out"
-                color="#3cc194"
-                onPress={this.handleSignOut}
-              />
-            </View>
-          </View>
-          <JobSeeker navigation={this.props.navigation} />
-        </View>
-      );
-    }
-    return <View style={styles.container}>{MainComponent}</View>;
+      </View>
+    );
   }
 }
 
